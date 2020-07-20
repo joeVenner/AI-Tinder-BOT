@@ -1,11 +1,19 @@
 from selenium import webdriver
 from time import sleep
 
-
+'''
+1 : set chromeDriver Path Line 14
+2 : set facebook user name Line 38
+3 : set facebook password line 40
+'''
 
 class bot():
     def __init__(self):
-        self.driver = webdriver.Chrome()
+        self.chrome_options = webdriver.ChromeOptions()
+        self.prefs = {"profile.default_content_setting_values.notifications": 2}
+        self.chrome_options.add_experimental_option("prefs", self.prefs)
+        # Set the path to the chrome Driver
+        self.driver = webdriver.Chrome(executable_path='C:\\Users\\\Joe\\chromedriver.exe',options=self.chrome_options)
 
     def login(self):
         self.driver.maximize_window()
@@ -28,9 +36,9 @@ class bot():
         sleep(2)
 
         email_fb = self.driver.find_element_by_xpath('//*[@id="email"]')
-        email_fb.send_keys("SetyourUsername")
+        email_fb.send_keys("fb username")
         passwd_fb = self.driver.find_element_by_xpath('//*[@id="pass"]')
-        passwd_fb.send_keys("setYourPassword")
+        passwd_fb.send_keys("fb password")
 
         loing_fb = self.driver.find_element_by_xpath('//*[@id="u_0_0"]').click()
         sleep(3)
@@ -39,25 +47,6 @@ class bot():
 
         sleep(2)
 
-
-        allow = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
-        allow.click()
-
-        sleep(1)
-
-
-        enable = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
-        enable.click()
-
-        sleep(1)
-
-        acc_cookie = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[2]/div/div/div[1]/button')
-        acc_cookie.click()
-
-        sleep(1)
-        nothanks = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[1]/button')
-        nothanks.click()
-        sleep(1)
 
     def like(self):
         sleep(2)
