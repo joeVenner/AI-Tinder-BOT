@@ -1,21 +1,31 @@
 from selenium import webdriver
 from time import sleep
+from Checker import checker
+Fb_user = ""
+Fb_pass = ""
+chromedriverpath = ""
+###################################################
+# Goto Line 6 and set your Chrome Driver path     #
+# exemple : C:\\Users\\Joe\\chromedriver.exe      #
+# Goto Line 4 and set your facebook username      #
+# Goto line 5 and set your facebook password      #
+###################################################
 
-'''
-1 : set chromeDriver Path Line 14
-2 : set facebook user name Line 38
-3 : set facebook password line 40
-'''
 
 class bot():
     def __init__(self):
-        self.chrome_options = webdriver.ChromeOptions()
-        self.prefs = {"profile.default_content_setting_values.notifications": 2}
-        self.chrome_options.add_experimental_option("prefs", self.prefs)
-        # Set the path to the chrome Driver
-        self.driver = webdriver.Chrome(executable_path='C:\\Users\\\Joe\\chromedriver.exe',options=self.chrome_options)
+        if Fb_pass == "" or Fb_user == "" or chromedriverpath == "":
+            print("Set FaceBook user name and password to login ! ")
+            print("! You should have a Tinder account with Facebook if not create one First")
+            
+        else:
+            self.chrome_options = webdriver.ChromeOptions()
+            self.prefs = {"profile.default_content_setting_values.notifications": 2}
+            self.chrome_options.add_experimental_option("prefs", self.prefs)
+            self.driver = webdriver.Chrome(executable_path=chromedriverpath,options=self.chrome_options)
 
     def login(self):
+
         self.driver.maximize_window()
         self.driver.get('https://tinder.com')
         sleep(2)
@@ -36,9 +46,9 @@ class bot():
         sleep(2)
 
         email_fb = self.driver.find_element_by_xpath('//*[@id="email"]')
-        email_fb.send_keys("fb username")
+        email_fb.send_keys(Fb_user)
         passwd_fb = self.driver.find_element_by_xpath('//*[@id="pass"]')
-        passwd_fb.send_keys("fb password")
+        passwd_fb.send_keys(Fb_pass)
 
         loing_fb = self.driver.find_element_by_xpath('//*[@id="u_0_0"]').click()
         sleep(3)
@@ -49,10 +59,18 @@ class bot():
 
 
     def like(self):
+
         sleep(2)
 
         like = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
         like.click()
+        sleep(1)
+    def dislike(self):
+
+        sleep(2)
+
+        dislike = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button')
+        dislike.click()
         sleep(1)
 
     def sendmsg(self):
@@ -63,12 +81,35 @@ class bot():
         sendmsg.click()
         sleep(2)
 
+    def getimagelink(self):
+        sleep(1)
+        image = self.driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[1]/div/div/div/div/div').get_attribute('style')
+        link = image.split("\"")[1]
+        return link
+    def notintersted(self):
+        sleep(1)
+        self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[2]/button[2]').click()
+
+
 
 b = bot()
 b.login()
 
 for i in range(50):
     try:
-        b.like()
+        link = b.getimagelink()
+
+        result = checker(link)
+        sleep(1)
+        print("result ",result)
+        if result == 1:
+            b.like()
+        else:
+            b.dislike()
+
     except :
-        b.sendmsg()
+        try :
+            b.sendmsg()
+        except :
+            b.notintersted()
+
