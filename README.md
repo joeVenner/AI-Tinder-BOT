@@ -42,6 +42,9 @@
 3. Download Requirements Module :   
    > pip install -r requirerments.txt
 4. Download Project Repo [HERE](https://github.com/joeVenner/TinderBOT/archive/master.zip) 
+5. Open TinderBot.py and set :
+  > ChromeDriver Path 
+  > Facebook username and password
  
  
 ## - License :
