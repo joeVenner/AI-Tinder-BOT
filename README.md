@@ -40,7 +40,7 @@
    - Download Chromedriver from [THIS LINK](https://chromedriver.chromium.org/downloads)
       
 3. Download Requirements Module :   
-> pip install -r requirerments.txt
+   > pip install -r requirerments.txt
 4. Download Project Repo [HERE](https://github.com/joeVenner/TinderBOT/archive/master.zip) 
  
  
