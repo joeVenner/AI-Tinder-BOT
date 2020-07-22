@@ -12,6 +12,7 @@ chromedriverpath = ""
 ###################################################
 
 
+    
 class bot():
     def __init__(self):
         if Fb_pass == "" or Fb_user == "" or chromedriverpath == "":
